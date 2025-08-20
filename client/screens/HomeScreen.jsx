@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView } from "react-native";
+import { View, Text, TextInput, ScrollView, Platform } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -10,7 +10,7 @@ import FeaturedRow from "../components/featuredRow";
 
 export default function HomeScreen() {
   // console.log(featured[0].restaurants);
-  
+
   return (
     <SafeAreaView className="bg-white">
       <StatusBar barStyle="dark-content" />
@@ -39,27 +39,27 @@ export default function HomeScreen() {
       {/* main */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{
+          paddingBottom: Platform.OS === "ios" ? 20 : 70,
+        }}
       >
         {/* Categories */}
-        <Categories/>
+        <Categories />
 
         {/* features */}
         <View className="mt-5">
-          {
-            featured.map((item,index)=>{
-              console.log(item.title);
-              
-              return(
-                <FeaturedRow
-                  key={index}
-                  title={item.title}
-                  description={item.description}
-                  restaurants={item.restaurants}
-                />
-              )
-            })
-          }
+          {featured.map((item, index) => {
+            // console.log(item.title);
+
+            return (
+              <FeaturedRow
+                key={index}
+                title={item.title}
+                description={item.description}
+                restaurants={item.restaurants}
+              />
+            );
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>

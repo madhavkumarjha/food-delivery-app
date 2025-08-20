@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { themeColors } from "../theme";
+import RestaurantCard from "./restaurantCard";
 
 export default function FeaturedRow({ title, description, restaurants }) {
   // console.log(title, description, restaurants);
@@ -13,9 +14,26 @@ export default function FeaturedRow({ title, description, restaurants }) {
           <Text className="text-gray-500 text-xs">{description}</Text>
         </View>
         <TouchableOpacity>
-            <Text style={{color:themeColors.text}}>See All</Text>
+          <Text style={{ color: themeColors.text }}>See All</Text>
         </TouchableOpacity>
       </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
+        className="overflow-visible py-5"
+      >
+        {
+            restaurants.map((restaurant, index) => {
+                return(
+                    <RestaurantCard
+                    item={restaurant}
+                    key={index}
+                    />
+                )
+            })
+        }
+      </ScrollView>
     </View>
   );
 }
