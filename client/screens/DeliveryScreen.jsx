@@ -5,6 +5,9 @@ import { featured } from "../constants/index";
 import { useNavigation } from "@react-navigation/native";
 import { themeColors } from "../theme";
 import * as Icon from "react-native-feather";
+import { useDispatch, useSelector } from "react-redux";
+import { selectRestaurant } from "../redux/slices/restaurantSlice";
+import { emptyCart } from "../redux/slices/cartSlice";
 
 // import MapView, { Marker } from "expo-maps"; // Uncommen if using Expo Maps/react-native-maps but it is no longer exist for expo go only available for bare workflow
 
@@ -66,7 +69,8 @@ const leafletHtml = `
 `;
 
 export default function DeliveryScreen() {
-  const restaurant = featured[0].restaurants[0];
+  const restaurant = useSelector(selectRestaurant);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   // console.log(
   //   "DeliveryScreen",
@@ -74,6 +78,13 @@ export default function DeliveryScreen() {
   //   restaurant.long,
   //   restaurant.name
   // );
+  // console.log("DeliveryScreen", restaurant);
+
+  const cancelOrder=()=>{
+    navigation.navigate("Home");
+    dispatch(emptyCart());
+  }
+  
 
   return (
     <View style={{ flex: 1 }}>
@@ -123,7 +134,7 @@ export default function DeliveryScreen() {
             <TouchableOpacity className="bg-white p-2 rounded-full">
               <Icon.Phone fill={themeColors.bgColor(1)} stroke={themeColors.bgColor(1)} strokeWidth={1} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate("Home")} className="bg-white p-2 rounded-full">
+            <TouchableOpacity onPress={cancelOrder} className="bg-white p-2 rounded-full">
               <Icon.X  stroke={'red'} strokeWidth={4} />
             </TouchableOpacity>
           </View>

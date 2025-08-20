@@ -1,7 +1,13 @@
 import "./global.css";
-import { Text, View } from "react-native";
+import { Provider } from "react-redux";
+// import { store } from "./redux/store";
 import Navigation from "./navigation";
+import { store } from "./redux/store";
 
 export default function App() {
-  return <Navigation />;
+  return (
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  );
 }
