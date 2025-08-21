@@ -3,8 +3,11 @@ import React from "react";
 import * as Icon from "react-native-feather";
 import { themeColors } from "../theme";
 import { useNavigation } from "@react-navigation/native";
+import { urlFor } from "../sanity";
 
 export default function RestaurantCard({ item }) {
+  // console.log(item);
+  
   const navigation = useNavigation();
   return (
     <TouchableWithoutFeedback
@@ -20,7 +23,7 @@ export default function RestaurantCard({ item }) {
           shadowOffset: { width: 0, height: 2 },
         }}
       >
-        <Image className="h-36 w-64 rounded-t-3xl" source={item.image} />
+        <Image className="h-36 w-64 rounded-t-3xl" source={{uri: urlFor(item.image).url()}} />
         <View className="pb-4 px-3 space-y-2">
           <Text className="text-lg font-bold pt-2">{item.name}</Text>
           <View className="flex-row items-center space-x-1 gap-1">
@@ -34,7 +37,7 @@ export default function RestaurantCard({ item }) {
               <Text className="text-gray-500">
                 {" "}
                 ({item.reviews} reviews) .{" "}
-                <Text className="font-semibold">{item.type}</Text>
+                <Text className="font-semibold">{item.type.name}</Text>
               </Text>
             </Text>
           </View>

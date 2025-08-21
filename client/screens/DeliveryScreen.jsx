@@ -80,11 +80,10 @@ export default function DeliveryScreen() {
   // );
   // console.log("DeliveryScreen", restaurant);
 
-  const cancelOrder=()=>{
+  const cancelOrder = () => {
     navigation.navigate("Home");
     dispatch(emptyCart());
-  }
-  
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -93,16 +92,16 @@ export default function DeliveryScreen() {
         source={{ html: leafletHtml }}
         style={{ flex: 1 }}
         injectedJavaScript={`
-    updateLocation(${restaurant.lat}, ${restaurant.long}, "${restaurant.name}<br>${restaurant.desc}");
+    updateLocation(${restaurant.lat}, ${restaurant.long}, "${restaurant.name}<br>${restaurant.description}");
     true;
   `}
       />
       <View className="rounded-t-3xl -mt-12 bg-white relative">
-         <View className="flex-row items-center justify-between px-5 pt-10">
+        <View className="flex-row items-center justify-between px-5 pt-10">
           <View>
-           <Text className="text-lg text-gray-700 font-semibold">
-             Estimated Arrival
-           </Text>
+            <Text className="text-lg text-gray-700 font-semibold">
+              Estimated Arrival
+            </Text>
             <Text className="text-3xl font-extrabold text-gray-700">
               20-30 Minutes
             </Text>
@@ -110,11 +109,14 @@ export default function DeliveryScreen() {
               Your order is own its way!
             </Text>
           </View>
-          <Image className="w-24 h-24" source={require('../assets/images/bikeguy2.webp')}/>
-        </View> 
-        <View 
-        style={{ backgroundColor: themeColors.bgColor(0.8) }}
-        className="p-2 flex-row justify-between items-center rounded-full my-5 mx-2"
+          <Image
+            className="w-24 h-24"
+            source={require("../assets/images/bikeguy2.webp")}
+          />
+        </View>
+        <View
+          style={{ backgroundColor: themeColors.bgColor(0.8) }}
+          className="p-2 flex-row justify-between items-center rounded-full my-5 mx-2"
         >
           <View className="p-1 rounded-full">
             <Image
@@ -123,19 +125,22 @@ export default function DeliveryScreen() {
             />
           </View>
           <View className="flex-1 ml-3">
-            <Text className="text-lg font-bold text-white">
-              Noor Ahmad
-            </Text>
-            <Text className="font-semibold text-white">
-              Your Rider
-            </Text>
+            <Text className="text-lg font-bold text-white">Noor Ahmad</Text>
+            <Text className="font-semibold text-white">Your Rider</Text>
           </View>
           <View className="flex-row items-center space-x-3 mr-3 gap-2">
             <TouchableOpacity className="bg-white p-2 rounded-full">
-              <Icon.Phone fill={themeColors.bgColor(1)} stroke={themeColors.bgColor(1)} strokeWidth={1} />
+              <Icon.Phone
+                fill={themeColors.bgColor(1)}
+                stroke={themeColors.bgColor(1)}
+                strokeWidth={1}
+              />
             </TouchableOpacity>
-            <TouchableOpacity onPress={cancelOrder} className="bg-white p-2 rounded-full">
-              <Icon.X  stroke={'red'} strokeWidth={4} />
+            <TouchableOpacity
+              onPress={cancelOrder}
+              className="bg-white p-2 rounded-full"
+            >
+              <Icon.X stroke={"red"} strokeWidth={4} />
             </TouchableOpacity>
           </View>
         </View>

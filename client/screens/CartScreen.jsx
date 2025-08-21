@@ -11,6 +11,8 @@ import {
   selectCartItems,
   selectCartTotal,
 } from "../redux/slices/cartSlice";
+import { urlFor } from "../sanity";
+import EmptyCart from "../components/emptyCart";
 
 export default function CartScreen() {
   const restaurant = useSelector(selectRestaurant);
@@ -34,6 +36,11 @@ export default function CartScreen() {
     setGroupedItems(items);
   }, [cartItems]);
 
+  // ✅ show empty cart properly
+  if (cartItems.length === 0) {
+    return <EmptyCart />;
+  }
+  
   return (
     <View className="flex-1 bg-white mt-10 rounded-t-2xl">
       <View className="relative py-4 shadow-sm">
@@ -81,7 +88,7 @@ export default function CartScreen() {
               <Text className="font-bold" style={{ color: themeColors.text }}>
                 {items.length} x
               </Text>
-              <Image source={dish.image} className="w-14 h-14 rounded-full" />
+              <Image source={{uri:urlFor(dish.image).url()}} className="w-14 h-14 rounded-full" />
               <Text className="flex-1 font-bold text-gray-700">
                 {dish.name}
               </Text>
@@ -89,7 +96,7 @@ export default function CartScreen() {
               <TouchableOpacity
                 className="rounded-full p-1"
                 style={{ backgroundColor: themeColors.bgColor(1) }}
-                onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                onPress={() => dispatch(removeFromCart({ id: dish._id }))}
               >
                 <Icon.Minus stroke="white" width="20" height="20" />
               </TouchableOpacity>

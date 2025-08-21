@@ -1,5 +1,5 @@
 import { View, Text, TextInput, ScrollView, Platform } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as Icon from "react-native-feather";
@@ -7,9 +7,21 @@ import { themeColors } from "../theme";
 import Categories from "../components/categories";
 import { featured } from "../constants";
 import FeaturedRow from "../components/featuredRow";
+import { getFeaturedRestaurants } from "../sanity/api";
 
 export default function HomeScreen() {
   // console.log(featured[0].restaurants);
+  const [featuredRestaurants, setFeaturedRestaurants] = React.useState([]);
+  useEffect(()=>{
+    // Fetch featured restaurants from Sanity
+    getFeaturedRestaurants().then((data) => {
+      setFeaturedRestaurants(data);
+      // console.log(data);
+      
+    }).catch((error) => {
+      console.error("Error fetching featured restaurants:", error);
+    });
+  },[])
 
   return (
     <SafeAreaView className="bg-white">
@@ -48,13 +60,13 @@ export default function HomeScreen() {
 
         {/* features */}
         <View className="mt-5">
-          {featured.map((item, index) => {
+          {featuredRestaurants.map((item, index) => {
             // console.log(item.title);
 
             return (
               <FeaturedRow
                 key={index}
-                title={item.title}
+                title={item.name}
                 description={item.description}
                 restaurants={item.restaurants}
               />
